@@ -8,7 +8,6 @@ import org.example.mobilebackendjava.model.CollectionFilm;
 import org.example.mobilebackendjava.model.Movie;
 import org.example.mobilebackendjava.security.SecurityUtils;
 import org.example.mobilebackendjava.service.CollectionFilmService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +31,7 @@ public class FavoritesController {
         return ApiResponse.ok(collectionFilmService.getAllCollections());
     }
 
-    // Get collections of the currently authenticated user
+    // Lấy collections của user hiện tại (trích xuất từ Firebase Token)
     @GetMapping("/getCollectionsByUser")
     public ApiResponse<List<CollectionFilm>> getMyCollections() {
         String currentUserId = SecurityUtils.getCurrentUserId();

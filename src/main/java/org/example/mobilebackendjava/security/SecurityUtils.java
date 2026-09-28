@@ -11,7 +11,7 @@ public final class SecurityUtils {
     public static UserPrincipal getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null || !auth.isAuthenticated() || !(auth.getPrincipal() instanceof UserPrincipal)) {
-            throw new UnauthorizedException("User is not authenticated");
+            throw new UnauthorizedException("User is not authenticated. Please provide a valid Firebase Bearer token.");
         }
         return (UserPrincipal) auth.getPrincipal();
     }

@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/reviews/*/hide").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/reviews/*/show").hasRole("ADMIN")
 
-                        // Authenticated User Endpoints
+                        // Authenticated User Endpoints (Bắt buộc có Firebase ID Token)
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(firebaseAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

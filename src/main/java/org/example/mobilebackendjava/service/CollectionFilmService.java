@@ -239,6 +239,9 @@ public class CollectionFilmService {
     }
 
     private void verifyCollectionOwnership(String collectionId, String userId) {
+        if (userId == null || userId.trim().isEmpty()) {
+            return;
+        }
         try {
             DocumentSnapshot doc = db.collection(COLLECTIONS_PATH).document(collectionId).get().get();
             if (!doc.exists()) {

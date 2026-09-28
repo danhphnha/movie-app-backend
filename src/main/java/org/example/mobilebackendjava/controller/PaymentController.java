@@ -28,7 +28,7 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    // Authenticated: Client requests a VNPay payment URL
+    // Authenticated: Client khởi tạo thanh toán VNPay
     @PostMapping("/pay")
     public ApiResponse<Map<String, String>> createPayment(
             @Valid @RequestBody PaymentInitRequest req,
@@ -38,7 +38,7 @@ public class PaymentController {
         return ApiResponse.ok("Tạo liên kết thanh toán thành công", result);
     }
 
-    // Public: Server-to-Server IPN Webhook from VNPay
+    // Public: Server-to-Server IPN Webhook từ VNPay
     @GetMapping("/vnpay-ipn")
     public ResponseEntity<Map<String, String>> paymentIpn(HttpServletRequest request) {
         Map<String, String> fields = extractVnpayParams(request);
@@ -55,7 +55,7 @@ public class PaymentController {
         return ResponseEntity.ok(response);
     }
 
-    // Public: Return URL redirected back from user browser / webview
+    // Public: Return URL redirect về mobile app via deep link
     @GetMapping("/vnpay-return")
     public void paymentCallback(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Map<String, String> fields = extractVnpayParams(request);

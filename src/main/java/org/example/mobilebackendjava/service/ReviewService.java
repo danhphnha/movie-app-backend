@@ -326,6 +326,34 @@ public class ReviewService {
         }
     }
 
+    public Comment submitLegacyReview(String userId, String username, Comment comment) {
+        CreateReviewRequest req = new CreateReviewRequest();
+        req.setSlug(comment.getSlug());
+        req.setComment(comment.getComment());
+        req.setRating(comment.getRating() != null ? comment.getRating() : 5.0);
+        req.setMovieTitle(comment.getMovieTitle());
+
+        UserPrincipal principal = new UserPrincipal(userId, null, username, false);
+        return submitReview(principal, req);
+    }
+
+    public Comment addLegacyReply(String userId, String username, Comment reply) {
+        ReplyRequest req = new ReplyRequest();
+        req.setParentId(reply.getParentId());
+        req.setComment(reply.getComment());
+        req.setSlug(reply.getSlug());
+        req.setMovieTitle(reply.getMovieTitle());
+
+        UserPrincipal principal = new UserPrincipal(userId, null, username, false);
+        return addReply(principal, req);
+    }
+
+    public void updateLegacyReply(String reviewId, String userId, String newCommentText) {
+        UpdateReplyRequest req = new UpdateReplyRequest();
+        req.setComment(newCommentText);
+        updateReply(reviewId, userId, req);
+    }
+
     private String resolveUsername(String userId, String tokenName) {
         if (tokenName != null && !tokenName.trim().isEmpty()) {
             return tokenName;
