@@ -49,11 +49,20 @@ public class FirebaseConfig {
                             .build();
                 }
             } else {
-                log.warn("No specific Firebase credential found. Falling back to Application Default Credentials.");
-                options = FirebaseOptions.builder()
-                        .setCredentials(GoogleCredentials.getApplicationDefault())
-                        .setDatabaseUrl(databaseUrl)
-                        .build();
+                log.warn("No specific Firebase credential found in env 'FIREBASE_CONFIG' or 'src/main/resources/movieapp-f0c63-0f983a1aa75c.json'.");
+                try {
+                    options = FirebaseOptions.builder()
+                            .setCredentials(GoogleCredentials.getApplicationDefault())
+                            .setDatabaseUrl(databaseUrl)
+                            .build();
+                } catch (IOException e) {
+                    throw new IllegalStateException(
+                            "❌ Firebase credentials not configured! Please provide your service account key:\n" +
+                            "  👉 Cách 1: Thêm biến môi trường FIREBASE_CONFIG (chuỗi Base64 của file JSON key) vào IntelliJ Run Configuration.\n" +
+                            "  👉 Cách 2: Copy file key JSON vào đường dẫn 'src/main/resources/movieapp-f0c63-0f983a1aa75c.json'.",
+                            e
+                    );
+                }
             }
         }
 

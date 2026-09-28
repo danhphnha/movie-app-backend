@@ -12,4 +12,20 @@ public class UserPrincipal implements Serializable {
     private final String email;
     private final String name;
     private final boolean admin;
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
 }

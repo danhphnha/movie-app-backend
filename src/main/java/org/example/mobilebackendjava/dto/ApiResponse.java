@@ -25,6 +25,7 @@ public class ApiResponse<T> {
                 .success(true)
                 .message("Success")
                 .data(data)
+                .timestamp(Instant.now())
                 .build();
     }
 
@@ -33,6 +34,7 @@ public class ApiResponse<T> {
                 .success(true)
                 .message(message)
                 .data(data)
+                .timestamp(Instant.now())
                 .build();
     }
 
@@ -40,6 +42,16 @@ public class ApiResponse<T> {
         return ApiResponse.<T>builder()
                 .success(false)
                 .message(message)
+                .timestamp(Instant.now())
                 .build();
     }
+
+    public boolean isSuccess() { return success; }
+    public void setSuccess(boolean success) { this.success = success; }
+    public String getMessage() { return message; }
+    public void setMessage(String message) { this.message = message; }
+    public T getData() { return data; }
+    public void setData(T data) { this.data = data; }
+    public Instant getTimestamp() { return timestamp; }
+    public void setTimestamp(Instant timestamp) { this.timestamp = timestamp; }
 }
